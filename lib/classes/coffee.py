@@ -1,17 +1,33 @@
 class Coffee:
     def __init__(self, name):
         self.name = name
-        
-    def orders(self, new_order=None):
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, value):
+        if hasattr(self, "name"):
+            raise Exception("Already registered")
+        elif isinstance(value, str):
+            self._name = value
+
+    def orders(self):
         from classes.order import Order
-        pass
-    
-    def customers(self, new_customer=None):
+
+        return [order for order in Order.all if order.coffee == self]
+
+    def customers(self):
         from classes.customer import Customer
-        pass
-    
+
+        return list(set([order.customer for order in self.orders()]))
+
     def num_orders(self):
-        pass
-    
+        return len(self.orders())
+
     def average_price(self):
-        pass
+        total_price = [order.price for order in self.orders() if order.coffee == self]
+        num_orders = len(total_price)
+        average_price = sum(total_price) / num_orders
+        return average_price
