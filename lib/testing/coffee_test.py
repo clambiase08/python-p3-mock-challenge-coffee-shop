@@ -31,7 +31,7 @@ class TestCoffee:
         customer = Customer("Steve")
         order_1 = Order(customer, coffee, 2)
         order_2 = Order(customer, coffee, 5)
-        order_3 = Order(customer, coffee_2, 15)
+        order_3 = Order(customer, coffee_2, 10)
 
         assert len(coffee.orders()) == 2
         assert order_1 in coffee.orders()
