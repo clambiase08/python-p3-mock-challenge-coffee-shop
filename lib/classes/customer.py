@@ -2,8 +2,11 @@ from classes.order import Order
 
 
 class Customer:
+    all = []
+
     def __init__(self, name):
         self.name = name
+        Customer.all.append(self)
 
     @property
     def name(self):
@@ -23,8 +26,5 @@ class Customer:
         return list(set([order.coffee for order in self.orders()]))
 
     def create_order(self, coffee, price):
-        if type(price) == int:
-            new_order = Order(customer=self, coffee=coffee, price=price)
-            return new_order
-        else:
-            raise Exception
+        new_order = Order(self, coffee, price)
+        return new_order
